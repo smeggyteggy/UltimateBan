@@ -1,0 +1,178 @@
+name: UltimateBan
+version: '1.0.0'
+main: com.ultimateban.UltimateBan
+api-version: 1.16
+authors: [YourName]
+description: Ultimate player moderation and punishment plugin
+website: https://github.com/yourname/ultimateban
+
+commands:
+  ban:
+    description: Permanently ban a player
+    usage: /ban <player> [reason] [-s]
+    permission: ultimateban.ban
+  tempban:
+    description: Temporarily ban a player
+    usage: /tempban <player> <duration> [reason] [-s]
+    permission: ultimateban.tempban
+  unban:
+    description: Unban a player
+    usage: /unban <player> [reason] [-s]
+    permission: ultimateban.unban
+  mute:
+    description: Permanently mute a player
+    usage: /mute <player> [reason] [-s]
+    permission: ultimateban.mute
+  tempmute:
+    description: Temporarily mute a player
+    usage: /tempmute <player> <duration> [reason] [-s]
+    permission: ultimateban.tempmute
+  unmute:
+    description: Unmute a player
+    usage: /unmute <player> [reason] [-s]
+    permission: ultimateban.unmute
+  kick:
+    description: Kick a player from the server
+    usage: /kick <player> [reason] [-s]
+    permission: ultimateban.kick
+  warn:
+    description: Warn a player
+    usage: /warn <player> [reason] [-s]
+    permission: ultimateban.warn
+  check:
+    description: Check a player's punishment history
+    usage: /check <player>
+    permission: ultimateban.check
+  ipban:
+    description: Ban an IP address
+    usage: /ipban <ip> [reason] [-s]
+    permission: ultimateban.ipban
+  ipunban:
+    description: Unban an IP address
+    usage: /ipunban <ip> [reason] [-s]
+    permission: ultimateban.ipunban
+  history:
+    description: View a player's punishment history
+    usage: /history <player> [page]
+    permission: ultimateban.history
+  alts:
+    description: Check for a player's alt accounts
+    usage: /alts <player>
+    permission: ultimateban.alts
+  ultimateban:
+    description: Main UltimateBan command
+    usage: /ultimateban [reload|help|info]
+    permission: ultimateban.admin
+    aliases: [ub, uban]
+
+permissions:
+  ultimateban.ban:
+    description: Allows banning players
+    default: op
+  ultimateban.tempban:
+    description: Allows temporarily banning players
+    default: op
+  ultimateban.unban:
+    description: Allows unbanning players
+    default: op
+  ultimateban.mute:
+    description: Allows permanently muting players
+    default: op
+  ultimateban.tempmute:
+    description: Allows temporarily muting players
+    default: op
+  ultimateban.unmute:
+    description: Allows unmuting players
+    default: op
+  ultimateban.kick:
+    description: Allows kicking players
+    default: op
+  ultimateban.warn:
+    description: Allows warning players
+    default: op
+  ultimateban.check:
+    description: Allows checking a player's punishment status
+    default: op
+  ultimateban.history:
+    description: Allows viewing a player's punishment history
+    default: op
+  ultimateban.ipban:
+    description: Allows banning IP addresses
+    default: op
+  ultimateban.ipunban:
+    description: Allows unbanning IP addresses
+    default: op
+  ultimateban.alts:
+    description: Allows checking for a player's alt accounts
+    default: op
+  ultimateban.admin:
+    description: Allows access to admin commands
+    default: op
+  ultimateban.exempt:
+    description: Makes a player exempt from punishments
+    default: false
+  ultimateban.exempt.override:
+    description: Allows punishing exempt players
+    default: false
+  ultimateban.staff:
+    description: Identifies a player as staff
+    default: op
+  ultimateban.staff.override:
+    description: Allows punishing staff members
+    default: false
+  ultimateban.bypass.mute:
+    description: Allows bypassing mutes
+    default: false
+  ultimateban.bypass.ipban:
+    description: Allows bypassing IP bans
+    default: false
+  ultimateban.bypass.vpn:
+    description: Allows bypassing VPN detection
+    default: false
+  ultimateban.bypass.alt:
+    description: Allows bypassing alt detection
+    default: false
+  ultimateban.see.silent:
+    description: Allows seeing silent punishments
+    default: op
+  ultimateban.see.ban:
+    description: Allows seeing ban broadcasts
+    default: true
+  ultimateban.see.mute:
+    description: Allows seeing mute broadcasts
+    default: true
+  ultimateban.see.kick:
+    description: Allows seeing kick broadcasts
+    default: true
+  ultimateban.see.warn:
+    description: Allows seeing warn broadcasts
+    default: true
+  ultimateban.alert.vpn:
+    description: Allows receiving alerts about VPN usage
+    default: op
+  ultimateban.alert.alt:
+    description: Allows receiving alerts about alt accounts
+    default: op
+  ultimateban.*:
+    description: Gives access to all UltimateBan commands and features
+    default: op
+    children:
+      ultimateban.ban: true
+      ultimateban.tempban: true
+      ultimateban.unban: true
+      ultimateban.mute: true
+      ultimateban.tempmute: true
+      ultimateban.unmute: true
+      ultimateban.kick: true
+      ultimateban.warn: true
+      ultimateban.check: true
+      ultimateban.history: true
+      ultimateban.ipban: true
+      ultimateban.ipunban: true
+      ultimateban.alts: true
+      ultimateban.admin: true
+      ultimateban.exempt.override: true
+      ultimateban.staff.override: true
+      ultimateban.see.silent: true
+      ultimateban.alert.vpn: true
+      ultimateban.alert.alt: true 

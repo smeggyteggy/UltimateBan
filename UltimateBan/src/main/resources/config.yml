@@ -1,0 +1,415 @@
+# UltimateBan Configuration
+# Version 1.0.0
+
+# Plugin Settings
+settings:
+  prefix: "&8[&c&lUltimateBan&8] "
+  # Available languages: en, fr, es, de (only en is included by default)
+  language: "en"
+  # Show debug messages in console
+  debug: false
+  # Check for updates on startup
+  check_updates: true
+  # Broadcast punishments in chat
+  broadcast-punishments: true
+
+# Database Settings
+database:
+  # Type of database to use: MySQL, SQLite
+  type: "SQLite"
+  
+# SQLite Settings
+sqlite:
+  file: "database.db"
+  
+# MySQL Settings (if using MySQL)
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "ultimateban"
+  username: "root"
+  password: "password"
+  use_ssl: false
+
+# VPN Detection Settings
+vpn-detection:
+  # Whether to check for VPNs
+  enabled: true
+  # Whether to block VPNs
+  block: true
+  # API key for ipqualityscore.com (required for VPN detection)
+  # Get a free key at https://www.ipqualityscore.com/
+  api-key: ""
+  # Cache VPN results for this many minutes (reduces API calls)
+  cache-time: 1440
+
+# Alt Account Detection Settings
+alt-detection:
+  # Whether to check for alt accounts
+  enabled: true
+  # Whether to block alt accounts of banned players
+  block: true
+  # Whether to notify staff when a possible alt joins
+  notify-staff: true
+  # Permission to receive alt notifications
+  staff-permission: "ultimateban.alert.alt"
+  # How to determine if accounts are alts
+  detection-methods:
+    ip-match: true
+    uuid-pattern: true
+    name-similarity: true
+    join-pattern: true
+
+# Discord Webhook Integration
+discord:
+  enabled: false
+  # Webhook URLs for different types of punishments
+  webhooks:
+    ban: "https://discord.com/api/webhooks/your-webhook-url"
+    tempban: "https://discord.com/api/webhooks/your-webhook-url"
+    mute: "https://discord.com/api/webhooks/your-webhook-url"
+    tempmute: "https://discord.com/api/webhooks/your-webhook-url"
+    warn: "https://discord.com/api/webhooks/your-webhook-url"
+    kick: "https://discord.com/api/webhooks/your-webhook-url"
+    appeal: "https://discord.com/api/webhooks/your-webhook-url"
+    ipban: "https://discord.com/api/webhooks/your-webhook-url"
+
+# Punishment messages
+punishments:
+  ban-join-message: "&c&lYou have been permanently banned!\n\n&7Reason: &f%reason%\n&7Staff: &f%staff%\n\n&7Appeal at: &f&nwww.yourserver.com/appeal"
+  tempban-join-message: "&c&lYou have been banned!\n\n&7Reason: &f%reason%\n&7Staff: &f%staff%\n&7Expires: &f%expires%\n\n&7Appeal at: &f&nwww.yourserver.com/appeal"
+  mute-chat-message: "&c&lYou are muted!\n&7Reason: &f%reason%\n&7Staff: &f%staff%\n&7Expires: &f%expires%"
+  # VPN and Alt detection messages
+  vpn-blocked-message: "&c&l⚠ &4&lCONNECTION BLOCKED &c&l⚠\n\n&r&7VPN or proxy connections are not allowed on this server."
+  alt-blocked-message: "&c&l⚠ &4&lALT ACCOUNT DETECTED &c&l⚠\n\n&r&7Your connection matches a banned player.\n&7If you believe this is a mistake, please contact staff."
+  
+# Messages
+messages:
+  no-permission: "&c&l⚠ &cYou don't have permission to use this command!"
+  player-not-found: "&c&l⚠ &cPlayer not found!"
+  player-only: "&cThis command can only be used by players."
+  cannot-self-punish: "&cYou cannot punish yourself."
+  target-has-bypass: "&cPlayer %player% cannot be punished."
+  invalid-duration: "&cInvalid duration format. Use: 1d 12h 30m etc."
+  database-error: "&cAn error occurred while communicating with the database."
+  
+  # Ban messages
+  ban-usage: "&c&l⚠ &cUsage: &f/ban <player> <reason>"
+  ban-success: "&a&l✓ &aYou have banned &f%player% &apermanently."
+  ban-broadcast: "&c&l⚠ &f%player% &7has been &c&lBANNED &7by &c%staff%&7:\n&f%reason%"
+  already-banned: "&c&l⚠ &c%player% is already banned."
+
+  # IP Ban messages
+  ipban:
+    usage: "&c&l⚠ &cUsage: &f/ipban <ip|player> <reason>"
+    success: "&a&l✓ &aYou have banned IP &f%ip% &apermanently."
+    broadcast: "&c&l⚠ &fIP &c%ip% &7has been &c&lBANNED &7by &c%staff%&7:\n&f%reason%"
+    player-message: "&c&l⚠ &4&lYOUR IP IS BANNED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Banned by: &c%staff%\n&7Date: &c%date%\n\n&7Appeal at: &b&nminecraft.example.com/appeal"
+    already-banned: "&c&l⚠ &cIP address %ip% is already banned!"
+  
+  tempipban:
+    usage: "&c&l⚠ &cUsage: &f/tempipban <ip|player> <duration> <reason>"
+    success: "&a&l✓ &aYou have banned IP &f%ip% &afor &f%duration%&a."
+    broadcast: "&c&l⚠ &fIP &c%ip% &7has been &6&lTEMPORARILY BANNED &7by &c%staff% &7for &f%duration%&7:\n&f%reason%"
+    player-message: "&c&l⚠ &6&lYOUR IP IS TEMPORARILY BANNED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Banned by: &c%staff%\n&7Duration: &c%duration%\n&7Expires: &c%expires%\n&7Date: &c%date%\n\n&7Appeal at: &b&nminecraft.example.com/appeal"
+  
+  ipunban:
+    usage: "&c&l⚠ &cUsage: &f/ipunban <ip|player>"
+    success: "&a&l✓ &aYou have unbanned IP &f%ip%&a."
+    broadcast: "&a&l✓ &fIP &c%ip% &7has been &a&lUNBANNED &7by &c%staff%"
+    not-banned: "&c&l⚠ &cIP address %ip% is not banned."
+  
+  # Tempban messages
+  tempban-usage: "&c&l⚠ &cUsage: &f/tempban <player> <duration> <reason>"
+  tempban-success: "&a&l✓ &aYou have banned &f%player% &afor &f%duration%&a."
+  tempban-broadcast: "&c&l⚠ &f%player% &7has been &6&lTEMPORARILY BANNED &7by &c%staff% &7for &f%duration%&7:\n&f%reason%"
+  
+  # Mute messages
+  mute-usage: "&c&l⚠ &cUsage: &f/mute <player> <reason>"
+  mute-success: "&a&l✓ &aYou have muted &f%player% &apermanently."
+  mute-broadcast: "&c&l⚠ &f%player% &7has been &c&lMUTED &7by &c%staff%&7:\n&f%reason%"
+  already-muted: "&c&l⚠ &c%player% is already muted."
+  
+  # Tempmute messages
+  tempmute-usage: "&c&l⚠ &cUsage: &f/tempmute <player> <duration> <reason>"
+  tempmute-success: "&a&l✓ &aYou have muted &f%player% &afor &f%duration%&a."
+  tempmute-broadcast: "&c&l⚠ &f%player% &7has been &6&lTEMPORARILY MUTED &7by &c%staff% &7for &f%duration%&7:\n&f%reason%"
+  
+  # Warn messages
+  warn-usage: "&c&l⚠ &cUsage: &f/warn <player> <reason>"
+  warn-success: "&a&l✓ &aYou have warned &f%player%&a."
+  warn-broadcast: "&e&l⚠ &f%player% &7has been &e&lWARNED &7by &c%staff%&7:\n&f%reason%"
+  
+  # Kick messages
+  kick-usage: "&c&l⚠ &cUsage: &f/kick <player> <reason>"
+  kick-success: "&a&l✓ &aYou have kicked &f%player%&a."
+  kick-broadcast: "&e&l⚠ &f%player% &7has been &e&lKICKED &7by &c%staff%&7:\n&f%reason%"
+  
+  # Appeal messages
+  appeal-usage: "&c&l⚠ &cUsage: &f/appeal <reason>"
+  appeal-success: "&a&l✓ &aYour appeal has been submitted successfully!"
+  appeal-already-appealed: "&c&l⚠ &cYou have already appealed your punishment."
+  appeal-no-punishment: "&c&l⚠ &cYou don't have any active punishments to appeal."
+
+# Punishment Settings
+punishments:
+  # Enable fake punishments
+  fake_punishments: true
+  # Cooldown between punishments (seconds) for staff members
+  cooldown:
+    enabled: true
+    time: 3
+    bypass_permission: "ultimateban.cooldown.bypass"
+  # Ban-related settings
+  ban:
+    # Default reason if none provided
+    default_reason: "No reason specified"
+    # Show IP ban information
+    show_ip: false
+  # IP Ban settings
+  ip_ban:
+    enabled: true
+    # Ban all accounts with the same IP
+    ban_alts: true
+    # Store historical IPs for better alt detection
+    track_historical_ips: true
+    # Number of days to keep IP history
+    ip_history_days: 30
+  # Mute settings
+  mute:
+    # Block commands when muted
+    block_commands:
+      enabled: true
+      list:
+        - "msg"
+        - "tell"
+        - "w"
+        - "me"
+  # Warning settings
+  warn:
+    # Execute commands after X warnings
+    actions:
+      3:
+        - "mute %player% 1h Received 3 warnings"
+      5:
+        - "tempban %player% 1d Received 5 warnings"
+      10:
+        - "ban %player% Received 10 warnings"
+  # Appeal settings
+  appeals:
+    # Allow players to appeal punishments
+    enabled: true
+    # Cooldown between appeals (in hours)
+    cooldown: 24
+    # Minimum characters required for appeal reason
+    min_reason_length: 25
+
+# Hack Detection (Anti-Cheat Integration)
+hack_detection:
+  enabled: false
+  # Supported: NCP, AAC, Matrix, Vulcan
+  anti_cheat: "NCP"
+  # Actions to take when hacks detected
+  actions:
+    fly:
+      command: "tempban %player% 7d Flying/Hacking Detected"
+      threshold: 10
+    speed:
+      command: "tempban %player% 3d Speed/Hacking Detected"
+      threshold: 15
+    killaura:
+      command: "ban %player% Combat Hacks Detected"
+      threshold: 20
+
+# GUI Settings
+gui:
+  enabled: true
+  # Theme of the GUI (DARK, LIGHT)
+  theme: "DARK"
+  # Size of the GUI (valid sizes: 9, 18, 27, 36, 45, 54)
+  size: 54
+  # Title of the punishment GUI
+  title: "&c&lPunish: &f%player%"
+  # Default durations to display in GUI
+  durations:
+    ban:
+      - "1h"
+      - "6h"
+      - "12h"
+      - "1d"
+      - "3d"
+      - "7d"
+      - "30d"
+      - "Permanent"
+    mute:
+      - "5m"
+      - "15m"
+      - "30m"
+      - "1h"
+      - "6h"
+      - "12h"
+      - "1d"
+      - "Permanent"
+
+# Common reasons for punishments (used in tab completion and GUI)
+ban_reasons:
+  - "Hacking/Cheating"
+  - "Exploiting Bugs"
+  - "Inappropriate Skin/Name"
+  - "Advertising"
+  - "Toxicity"
+  - "Threats"
+  - "Evading Punishment"
+
+# Messages (use language files for more languages)
+messages:
+  no_permission: "&c&l⚠ &cYou don't have permission to use this command!"
+  player_not_found: "&c&l⚠ &cPlayer not found!"
+  player_only: "&cThis command can only be used by players."
+  cannot_self_punish: "&cYou cannot punish yourself."
+  target_has_bypass: "&cPlayer %player% cannot be punished."
+  invalid_duration: "&cInvalid duration format. Use: 1d 12h 30m etc."
+  cooldown_active: "&cPlease wait before issuing another punishment."
+  
+  # Ban messages
+  ban:
+    usage: "&c&l⚠ &cUsage: &f/ban <player> <reason>"
+    success: "&a&l✓ &aYou have banned &f%player% &apermanently."
+    broadcast: "&c&l⚠ &f%player% &7has been &c&lBANNED &7by &c%staff%&7:\n&f%reason%"
+    player_message: "&c&l⚠ &4&lYOU HAVE BEEN BANNED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Banned by: &c%staff%\n&7Date: &c%date%\n\n&7Appeal at: &b&nminecraft.example.com/appeal"
+    already_banned: "&c&l⚠ &c%player% is already banned."
+    chat_blocked: "&c&l⚠ &4&lYOU ARE BANNED &c&l⚠\n&r&7Reason: &c%reason%\n&7Banned by: &c%staff%\n&7Expires: &c%expires%"
+  
+  tempban:
+    usage: "&c&l⚠ &cUsage: &f/tempban <player> <duration> <reason>"
+    success: "&a&l✓ &aYou have banned &f%player% &afor &f%duration%&a."
+    broadcast: "&c&l⚠ &f%player% &7has been &6&lTEMPORARILY BANNED &7by &c%staff% &7for &f%duration%&7:\n&f%reason%"
+    player_message: "&c&l⚠ &6&lYOU HAVE BEEN TEMPORARILY BANNED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Banned by: &c%staff%\n&7Duration: &c%duration%\n&7Expires: &c%expires%\n&7Date: &c%date%\n\n&7Appeal at: &b&nminecraft.example.com/appeal"
+    already_banned: "&c&l⚠ &c%player% is already banned."
+  
+  unban:
+    usage: "&c&l⚠ &cUsage: &f/unban <player>"
+    success: "&a&l✓ &aYou have unbanned &f%player%&a."
+    broadcast: "&a&l✓ &f%player% &7has been &a&lUNBANNED &7by &c%staff%"
+    not_banned: "&c&l⚠ &c%player% is not banned."
+  
+  # Mute messages
+  mute:
+    usage: "&c&l⚠ &cUsage: &f/mute <player> <reason>"
+    success: "&a&l✓ &aYou have muted &f%player% &apermanently."
+    broadcast: "&c&l⚠ &f%player% &7has been &c&lMUTED &7by &c%staff%&7:\n&f%reason%"
+    player_message: "&c&l⚠ &4&lYOU HAVE BEEN MUTED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Muted by: &c%staff%\n&7Date: &c%date%"
+    already_muted: "&c&l⚠ &c%player% is already muted."
+    chat_blocked: "&c&l⚠ &4&lYOU ARE MUTED &c&l⚠\n&r&7Reason: &c%reason%\n&7Muted by: &c%staff%\n&7Expires: &c%expires%"
+  
+  tempmute:
+    usage: "&c&l⚠ &cUsage: &f/tempmute <player> <duration> <reason>"
+    success: "&a&l✓ &aYou have muted &f%player% &afor &f%duration%&a."
+    broadcast: "&c&l⚠ &f%player% &7has been &6&lTEMPORARILY MUTED &7by &c%staff% &7for &f%duration%&7:\n&f%reason%"
+    player_message: "&c&l⚠ &6&lYOU HAVE BEEN TEMPORARILY MUTED &c&l⚠\n\n&r&7Reason: &c%reason%\n&7Muted by: &c%staff%\n&7Duration: &c%duration%\n&7Expires: &c%expires%"
+    already_muted: "&c&l⚠ &c%player% is already muted."
+  
+  unmute:
+    usage: "&c&l⚠ &cUsage: &f/unmute <player>"
+    success: "&a&l✓ &aYou have unmuted &f%player%&a."
+    broadcast: "&a&l✓ &f%player% &7has been &a&lUNMUTED &7by &c%staff%"
+    not_muted: "&c&l⚠ &c%player% is not muted."
+  
+  # Warn messages
+  warn:
+    usage: "&c&l⚠ &cUsage: &f/warn <player> <reason>"
+    success: "&a&l✓ &aYou have warned &f%player%&a."
+    broadcast: "&e&l⚠ &f%player% &7has been &e&lWARNED &7by &c%staff%&7:\n&f%reason%"
+    player_message: "&e&l⚠ &e&lYOU HAVE BEEN WARNED &e&l⚠\n\n&r&7Reason: &e%reason%\n&7Warned by: &c%staff%\n&7Date: &e%date%"
+  
+  # Kick messages
+  kick:
+    usage: "&c&l⚠ &cUsage: &f/kick <player> <reason>"
+    success: "&a&l✓ &aYou have kicked &f%player%&a."
+    broadcast: "&e&l⚠ &f%player% &7has been &e&lKICKED &7by &c%staff%&7:\n&f%reason%"
+    player_message: "&e&l⚠ &e&lYOU HAVE BEEN KICKED &e&l⚠\n\n&r&7Reason: &e%reason%\n&7Kicked by: &c%staff%"
+  
+  # Appeal messages
+  appeal:
+    usage: "&c&l⚠ &cUsage: &f/appeal <reason>"
+    success: "&a&l✓ &aYour appeal has been submitted successfully!"
+    broadcast_staff: "&e&l⚠ &f%player% &7has submitted an appeal: &f%reason%"
+    no_active_punishments: "&c&l⚠ &cYou don't have any active punishments to appeal."
+    already_appealed: "&c&l⚠ &cYou have already appealed your punishment."
+  
+  reviewappeal:
+    usage: "&c&l⚠ &cUsage: &f/reviewappeal <id> <accept|reject> <reason>"
+    success_accept: "&a&l✓ &aYou have accepted appeal #&f%id%&a."
+    success_reject: "&a&l✓ &aYou have rejected appeal #&f%id%&a."
+    broadcast_accept: "&a&l✓ &7Appeal #&f%id% &7by &f%player% &7has been &a&lACCEPTED &7by &c%staff%"
+    broadcast_reject: "&c&l⚠ &7Appeal #&f%id% &7by &f%player% &7has been &c&lREJECTED &7by &c%staff%"
+    player_message_accept: "&a&l✓ &a&lYOUR APPEAL HAS BEEN ACCEPTED!\n\n&r&7Staff: &a%staff%\n&7Response: &a%response%"
+    player_message_reject: "&c&l⚠ &c&lYOUR APPEAL HAS BEEN REJECTED!\n\n&r&7Staff: &c%staff%\n&7Response: &c%response%"
+    not_found: "&c&l⚠ &cAppeal #&f%id% &cnot found."
+    invalid_action: "&c&l⚠ &cInvalid action. Use 'accept' or 'reject'."
+  
+  # Fake punishment messages
+  fakeban:
+    usage: "&c&l⚠ &cUsage: &f/fakeban <player> <reason>"
+    success: "&a&l✓ &aFake ban created for %player%."
+    
+  # Punishment GUI messages
+  punishment_gui:
+    title: "&c&lPunish: &f%player%"
+    ban_item: "&c&lBan"
+    tempban_item: "&c&lTemp Ban"
+    mute_item: "&e&lMute"
+    tempmute_item: "&e&lTemp Mute"
+    warn_item: "&6&lWarn"
+    kick_item: "&9&lKick"
+    history_item: "&7&lHistory"
+    back_item: "&7&lBack"
+    duration_item: "&f%duration%"
+
+# Broadcast Settings
+broadcast:
+  # Whether to broadcast punishments to all players
+  ban: true
+  tempban: true
+  unban: true
+  mute: true
+  tempmute: true
+  unmute: true
+  warn: true
+  kick: true
+
+# Appeal Settings
+appeals:
+  # Whether to allow players to appeal their punishments
+  enabled: true
+  # Whether to require a reason for appeals
+  require_reason: true
+  # Whether to notify staff when a player appeals
+  notify_staff: true
+  # Staff permission to be notified
+  staff_permission: "ultimateban.appealnotify"
+
+# Permission Settings
+permissions:
+  # Admin permission (grants all permissions)
+  admin: "ultimateban.admin"
+  # Ban permissions
+  ban: "ultimateban.ban"
+  tempban: "ultimateban.tempban"
+  unban: "ultimateban.unban"
+  # Mute permissions
+  mute: "ultimateban.mute"
+  tempmute: "ultimateban.tempmute"
+  unmute: "ultimateban.unmute"
+  # Other permissions
+  warn: "ultimateban.warn"
+  kick: "ultimateban.kick"
+  history: "ultimateban.history"
+  # Appeal permissions
+  appeal: "ultimateban.appeal"
+  reviewappeal: "ultimateban.reviewappeal"
+  # Bypass permissions
+  bypass:
+    ban: "ultimateban.bypass.ban"
+    mute: "ultimateban.bypass.mute"
+    override: "ultimateban.bypass.override" 
